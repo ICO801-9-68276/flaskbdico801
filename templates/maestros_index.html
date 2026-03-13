@@ -2,7 +2,7 @@
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
   <a
-    href="Alumnos"
+    href="Maestros"
     class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
   >
     <svg
@@ -32,18 +32,18 @@
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
     >
       <tr>
-        <th scope="col" class="px-6 py-3">Nombre</th>
+        <th scope="col" class="px-6 py-3">Matricula</th>
         <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Apaterno</div>
+          <div class="flex items-center">Nombre</div>
         </th>
         <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Amaterno</div>
+          <div class="flex items-center">Apellidos</div>
         </th>
         <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Edad</div>
+          <div class="flex items-center">Especialidad</div>
         </th>
         <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Correo</div>
+          <div class="flex items-center">Email</div>
         </th>
         <th scope="col" class="px-6 py-3">
           <div class="flex items-center">Editar</div>
@@ -57,7 +57,7 @@
       </tr>
     </thead>
     <tbody>
-      {%for alum in alumno%}
+      {%for maes in maestro%}
       <tr
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
       >
@@ -65,15 +65,15 @@
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
         >
-          {{ alum.nombre }}
+          {{ maes.matricula }}
         </th>
-        <td class="px-6 py-4">{{ alum.apaterno }}</td>
-        <td class="px-6 py-4">{{ alum.amaterno }}</td>
-        <td class="px-6 py-4">{{ alum.edad }}</td>
-        <td class="px-6 py-4">{{ alum.email }}</td>
+        <td class="px-6 py-4">{{ maes.nombre }}</td>
+        <td class="px-6 py-4">{{ maes.apellidos }}</td>
+        <td class="px-6 py-4">{{ maes.especialidad }}</td>
+        <td class="px-6 py-4">{{ maes.email }}</td>
         <td class="px-6 py-4 text-right">
           <a
-            href="modificar?id={{ alum.id }}"
+            href="modificar_maestro?matricula={{ maes.matricula }}"
             class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
           >
             <svg
@@ -99,7 +99,7 @@
         </td>
         <td class="px-6 py-4 text-right">
           <a
-            href="detalles?id={{ alum.id }}"
+            href="detalles_maestro?matricula={{ maes.matricula }}"
             class="flex items-center gap-2 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
           >
             <svg
@@ -109,7 +109,7 @@
               fill="currentColor"
             >
               <path
-                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8.5 11l3-3-3-3 1-1 4 4-4 4-1-1z"
+                d="M10 2a8 8 0 100 16 8 8 0 0 0 0-16zM8.5 11l3-3-3-3 1-1 4 4-4 4-1-1z"
               />
             </svg>
             Detalles
@@ -117,7 +117,7 @@
         </td>
         <td class="px-6 py-4 text-right">
           <a
-            href="eliminar?id={{ alum.id }}"
+            href="eliminar_maestro?matricula={{ maes.matricula }}"
             class="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
             <svg
