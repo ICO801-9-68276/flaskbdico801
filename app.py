@@ -3,11 +3,13 @@ from flask import flash
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from models import db, Alumnos, Maestros
+from flask_migrate import Migrate
 import forms  
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
+migrate=Migrate(app, db)
 csrf = CSRFProtect(app)
 
 @app.route("/",methods=["GET","POST"])
