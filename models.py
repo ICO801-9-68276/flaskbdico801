@@ -7,8 +7,10 @@ class Alumnos(db.Model):
     __tablename__ = 'alumnos'
 
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(50), nullable=False)
+    nombre = db.Column(db.String(250), nullable=False)
     apaterno = db.Column(db.String(50), nullable=False)
+    amaterno = db.Column(db.String(150), nullable=False)
+    edad = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(50), nullable=False)
     created_date = db.Column(db.DateTime, default=datetime.datetime.now)
 
@@ -17,6 +19,7 @@ class Alumnos(db.Model):
         secondary='inscripciones',
         back_populates='alumnos'
     )
+
 
 class Maestros(db.Model):
     __tablename__ = 'maestros'
@@ -28,6 +31,7 @@ class Maestros(db.Model):
     email = db.Column(db.String(50), nullable=False)
 
     cursos = db.relationship('Curso', back_populates='maestro')
+
 
 class Curso(db.Model):
     __tablename__ = 'cursos'
@@ -49,6 +53,7 @@ class Curso(db.Model):
         secondary='inscripciones',
         back_populates='cursos'
     )
+
 
 class Inscripcion(db.Model):
     __tablename__ = 'inscripciones'
