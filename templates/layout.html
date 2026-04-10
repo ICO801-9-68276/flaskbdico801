@@ -23,12 +23,24 @@
           <a href="{{ url_for('index') }}" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Alumnos</a>
         </li>
         <li>
-          <a href="{{ url_for('maestros_bp.maestros') }}" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Maestros</a>
+          <a href="{{ url_for('maestros.maestros') }}" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Maestros</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="max-w-screen-xl mx-auto mt-24 px-4">
+      {% for message in messages %}
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
 
 <div class="container mx-auto px-4">
     {% block container %}

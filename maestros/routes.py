@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from models import db, Maestros
 import forms
-
-maestros_bp = Blueprint('maestros_bp', __name__)
+from . import maestros_bp
 
 @maestros_bp.route("/maestros", methods=["GET", "POST"])
 def maestros():
@@ -13,9 +12,28 @@ def maestros():
 @maestros_bp.route("/maestros/nuevo", methods=["GET", "POST"])
 def maestros_nuevo():
     create_form = forms.MaestrosForm(request.form)
+
     if request.method == 'POST':
+        if not create_form.validate():
+            flash("Te faltan datos o hay campos inválidos")
+            return render_template("maestros/crear.html", form=create_form)
+
+        try:
+            matricula_int = int(create_form.matricula.data)
+        except ValueError:
+            flash("La matrícula debe ser numérica")
+            return render_template("maestros/crear.html", form=create_form)
+
+        existe_maestro = db.session.query(Maestros).filter(
+            Maestros.matricula == matricula_int
+        ).first()
+
+        if existe_maestro:
+            flash("No se puede registrar porque la matrícula ya existe")
+            return render_template("maestros/crear.html", form=create_form)
+
         maestro = Maestros(
-            matricula=create_form.matricula.data,
+            matricula=matricula_int,
             nombre=create_form.nombre.data,
             apellidos=create_form.apellidos.data,
             especialidad=create_form.especialidad.data,
@@ -23,12 +41,15 @@ def maestros_nuevo():
         )
         db.session.add(maestro)
         db.session.commit()
-        return redirect(url_for('maestros_bp.maestros'))
+        flash("Maestro registrado correctamente")
+        return redirect(url_for('maestros.maestros'))
+
     return render_template("maestros/crear.html", form=create_form)
 
 @maestros_bp.route("/maestros/modificar", methods=['GET', 'POST'])
 def maestros_modificar():
     create_form = forms.MaestrosForm(request.form)
+
     if request.method == 'GET':
         matricula = request.args.get('matricula')
         maestro1 = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
@@ -39,6 +60,10 @@ def maestros_modificar():
         create_form.email.data = maestro1.email
 
     if request.method == 'POST':
+        if not create_form.validate():
+            flash("Te faltan datos o hay campos inválidos")
+            return render_template("maestros/modificar.html", form=create_form)
+
         matricula = request.args.get('matricula')
         maestro1 = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
         maestro1.matricula = matricula
@@ -48,12 +73,15 @@ def maestros_modificar():
         maestro1.email = create_form.email.data
         db.session.add(maestro1)
         db.session.commit()
-        return redirect(url_for('maestros_bp.maestros'))
+        flash("Maestro modificado correctamente")
+        return redirect(url_for('maestros.maestros'))
+
     return render_template("maestros/modificar.html", form=create_form)
 
 @maestros_bp.route('/maestros/eliminar', methods=['GET', 'POST'])
 def maestros_eliminar():
     create_form = forms.MaestrosForm(request.form)
+
     if request.method == 'GET':
         matricula = request.args.get('matricula')
         maestro1 = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
@@ -68,7 +96,9 @@ def maestros_eliminar():
         maestro = Maestros.query.get_or_404(matricula)
         db.session.delete(maestro)
         db.session.commit()
-        return redirect(url_for('maestros_bp.maestros'))
+        flash("Maestro eliminado correctamente")
+        return redirect(url_for('maestros.maestros'))
+
     return render_template('maestros/eliminar.html', form=create_form)
 
 @maestros_bp.route("/maestros/detalles", methods=['GET', 'POST'])

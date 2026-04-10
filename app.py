@@ -4,7 +4,7 @@ from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from flask import g
 from flask_migrate import Migrate
-from maestros.routes import maestros_bp
+from maestros import maestros_bp
 
 from models import db, Alumnos
 import forms

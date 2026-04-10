@@ -2,7 +2,7 @@
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
   <a
-    href="{{ url_for('maestros_bp.maestros_nuevo') }}"
+    href="{{ url_for('maestros.maestros_nuevo') }}"
     class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
   >
     <svg
@@ -59,7 +59,7 @@
         <td class="px-6 py-4">{{ maestro.email }}</td>
         <td class="px-6 py-4 text-right">
           <a
-            href="{{ url_for('maestros_bp.maestros_modificar', matricula=maestro.matricula) }}"
+            href="{{ url_for('maestros.maestros_modificar', matricula=maestro.matricula) }}"
             class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
           >
             Editar
@@ -67,7 +67,7 @@
         </td>
         <td class="px-6 py-4 text-right">
           <a
-            href="{{ url_for('maestros_bp.maestros_detalles', matricula=maestro.matricula) }}"
+            href="{{ url_for('maestros.maestros_detalles', matricula=maestro.matricula) }}"
             class="flex items-center gap-2 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
           >
             Detalles
@@ -75,7 +75,7 @@
         </td>
         <td class="px-6 py-4 text-right">
           <a
-            href="{{ url_for('maestros_bp.maestros_eliminar', matricula=maestro.matricula) }}"
+            href="{{ url_for('maestros.maestros_eliminar', matricula=maestro.matricula) }}"
             class="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
             Eliminar
