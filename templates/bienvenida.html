@@ -1,17 +1,27 @@
 {% extends "layout.html" %}
 
 {% block container %}
-<div class="bg-white shadow-lg rounded-2xl p-10 text-center">
-    <h1 class="text-4xl font-bold text-blue-700 mb-4">Bienvenido al Sistema Escolar</h1>
-    <p class="text-gray-700 text-lg mb-6">
-        Desde la barra de navegación puedes administrar alumnos, maestros, cursos,
-        realizar inscripciones y ejecutar las consultas solicitadas.
-    </p>
+<div style="margin-top: 140px; padding: 20px;">
+    <div style="max-width: 1100px; margin: 0 auto; background: white; border: 1px solid #ddd; border-radius: 18px; padding: 50px 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; gap: 50px;">
 
-    <div class="grid md:grid-cols-3 gap-4 mt-8">
-        <a href="{{ url_for('alumnos') }}" class="bg-blue-600 text-white p-4 rounded-xl hover:bg-blue-700">Ir a Alumnos</a>
-        <a href="{{ url_for('maestros') }}" class="bg-green-600 text-white p-4 rounded-xl hover:bg-green-700">Ir a Maestros</a>
-        <a href="{{ url_for('cursos') }}" class="bg-purple-600 text-white p-4 rounded-xl hover:bg-purple-700">Ir a Cursos</a>
+        <div style="flex: 1; text-align: left;">
+            <h1 style="font-size: 42px; font-weight: bold; color: #1f2937; margin-bottom: 25px; line-height: 1.2;">
+                Portal de Gestión Institucional <br> Universidad de León
+            </h1>
+
+            <p style="font-size: 22px; line-height: 1.7; color: #4b5563;">
+                Te damos la más cordial bienvenida a nuestra plataforma académica. Esta herramienta digital ha sido estructurada para optimizar el control escolar, brindándote un acceso ágil y centralizado a la información. A través de este portal, podrás administrar los perfiles de estudiantes y docentes de manera segura, elevando la eficiencia de todos nuestros procesos universitarios.
+            </p>
+        </div>
+
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <img
+                src="{{ url_for('static', filename='img/UDL_LogotipoColor.png') }}"
+                alt="Logotipo UDL"
+                style="width: 480px; max-width: 100%; height: auto; object-fit: contain;"
+            >
+        </div>
+
     </div>
 </div>
 {% endblock %}
