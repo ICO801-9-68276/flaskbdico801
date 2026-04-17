@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, IntegerField, EmailField
+from wtforms import Form, StringField, IntegerField, EmailField, TextAreaField
 from wtforms import validators
 
 
@@ -40,4 +40,13 @@ class MaestrosForm(Form):
     email = EmailField('Email', [
         validators.DataRequired(message="El correo es requerido"),
         validators.Email(message="Ingrese un correo válido")
+    ])
+
+class CursoForm(Form):
+    nombre = StringField('Nombre del curso', [
+        validators.DataRequired(message="El nombre del curso es requerido"),
+        validators.length(min=3, max=150, message="Ingrese un nombre válido")
+    ])
+    descripcion = TextAreaField('Descripción', [
+        validators.Optional()
     ])

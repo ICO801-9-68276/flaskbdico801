@@ -1,0 +1,54 @@
+{% extends "layout.html" %} {% block container %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <a
+    href="{{ url_for('cursos.cursos_nuevo') }}"
+    class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
+  >
+    Nuevo
+  </a>
+
+  <table class="py-2 w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <tr>
+        <th scope="col" class="px-6 py-3">ID</th>
+        <th scope="col" class="px-6 py-3">Nombre</th>
+        <th scope="col" class="px-6 py-3">Descripción</th>
+        <th scope="col" class="px-6 py-3">Maestro</th>
+        <th scope="col" class="px-6 py-3">Editar</th>
+        <th scope="col" class="px-6 py-3">Detalles</th>
+        <th scope="col" class="px-6 py-3">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for curso in cursos %}
+      <tr class="bg-white border-b border-gray-200">
+        <td class="px-6 py-4">{{ curso.id }}</td>
+        <td class="px-6 py-4">{{ curso.nombre }}</td>
+        <td class="px-6 py-4">{{ curso.descripcion }}</td>
+        <td class="px-6 py-4">{{ curso.maestro.nombre }}</td>
+        <td class="px-6 py-4">
+          <a href="{{ url_for('cursos.cursos_modificar', id=curso.id) }}"
+             class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+            Editar
+          </a>
+        </td>
+        <td class="px-6 py-4">
+          <a href="{{ url_for('cursos.cursos_detalles', id=curso.id) }}"
+             class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+            Detalles
+          </a>
+        </td>
+        <td class="px-6 py-4">
+          <a href="{{ url_for('cursos.cursos_eliminar', id=curso.id) }}"
+             class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+            Eliminar
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

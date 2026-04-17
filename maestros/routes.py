@@ -85,6 +85,11 @@ def maestros_eliminar():
     if request.method == 'GET':
         matricula = request.args.get('matricula')
         maestro1 = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+
+        if not maestro1:
+            flash("El maestro no existe")
+            return redirect(url_for('maestros.maestros'))
+
         create_form.matricula.data = maestro1.matricula
         create_form.nombre.data = maestro1.nombre
         create_form.apellidos.data = maestro1.apellidos
@@ -94,6 +99,16 @@ def maestros_eliminar():
     if request.method == 'POST':
         matricula = request.form.get('matricula')
         maestro = Maestros.query.get_or_404(matricula)
+
+        if maestro.cursos:
+            flash("No se puede eliminar el maestro porque está asignado a uno o más cursos. Debes cambiar el profesor en Cursos antes de eliminarlo.")
+            create_form.matricula.data = maestro.matricula
+            create_form.nombre.data = maestro.nombre
+            create_form.apellidos.data = maestro.apellidos
+            create_form.especialidad.data = maestro.especialidad
+            create_form.email.data = maestro.email
+            return render_template('maestros/eliminar.html', form=create_form)
+
         db.session.delete(maestro)
         db.session.commit()
         flash("Maestro eliminado correctamente")
