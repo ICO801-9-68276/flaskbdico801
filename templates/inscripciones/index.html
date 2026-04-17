@@ -1,0 +1,70 @@
+{% extends "layout.html" %} {% block container %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <a
+    href="{{ url_for('inscripciones.inscripciones_nuevo') }}"
+    class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
+  >
+    Nueva inscripción
+  </a>
+
+  <table class="py-2 w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <tr>
+        <th class="px-6 py-3">ID</th>
+        <th class="px-6 py-3">Alumno</th>
+        <th class="px-6 py-3">Curso</th>
+        <th class="px-6 py-3">Maestro</th>
+        <th class="px-6 py-3">Fecha</th>
+        <th class="px-6 py-3">Editar</th>
+        <th class="px-6 py-3">Detalles</th>
+        <th class="px-6 py-3">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for inscripcion in inscripciones %}
+      <tr class="bg-white border-b border-gray-200">
+        <td class="px-6 py-4">{{ inscripcion.id }}</td>
+        <td class="px-6 py-4">
+          {{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apaterno }} {{
+          inscripcion.alumno.amaterno }}
+        </td>
+        <td class="px-6 py-4">{{ inscripcion.curso.nombre }}</td>
+        <td class="px-6 py-4">
+          {{ inscripcion.curso.maestro.nombre if inscripcion.curso and
+          inscripcion.curso.maestro else '' }}
+        </td>
+        <td class="px-6 py-4">
+          {{ inscripcion.fecha_inscripcion.strftime('%d/%m/%Y %H:%M') }}
+        </td>
+        <td class="px-6 py-4">
+          <a
+            href="{{ url_for('inscripciones.inscripciones_modificar', id=inscripcion.id) }}"
+            class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+          >
+            Editar
+          </a>
+        </td>
+        <td class="px-6 py-4">
+          <a
+            href="{{ url_for('inscripciones.inscripciones_detalles', id=inscripcion.id) }}"
+            class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+          >
+            Detalles
+          </a>
+        </td>
+        <td class="px-6 py-4">
+          <a
+            href="{{ url_for('inscripciones.inscripciones_eliminar', id=inscripcion.id) }}"
+            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            Eliminar
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

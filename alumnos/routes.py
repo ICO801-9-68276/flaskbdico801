@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from models import db, Alumnos
+from models import db, Alumnos, Inscripcion
 import forms
 from . import alumnos_bp
 
@@ -73,15 +73,17 @@ def modificar():
 
     return render_template("alumnos/modificar.html", form=create_form)
 
-@alumnos_bp.route("/alumnos/eliminar", methods=["GET", "POST"])
+@alumnos_bp.route('/alumnos/eliminar', methods=['GET', 'POST'])
 def eliminar():
     create_form = forms.UserForm(request.form)
 
-    if request.method == "GET":
-        id = request.args.get("id")
+    if request.method == 'GET':
+        id = request.args.get('id')
         alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+
         if not alum1:
-            return redirect(url_for("alumnos.alumnos"))
+            flash("El alumno no existe")
+            return redirect(url_for('alumnos.alumnos'))
 
         create_form.id.data = alum1.id
         create_form.nombre.data = alum1.nombre
@@ -90,15 +92,21 @@ def eliminar():
         create_form.edad.data = alum1.edad
         create_form.email.data = alum1.email
 
-    if request.method == "POST":
-        id = request.form.get("id")
+    if request.method == 'POST':
+        id = request.form.get('id')
         alum = Alumnos.query.get_or_404(id)
+
+        inscripciones = Inscripcion.query.filter_by(alumno_id=alum.id).all()
+        for inscripcion in inscripciones:
+            db.session.delete(inscripcion)
+
         db.session.delete(alum)
         db.session.commit()
-        flash("Alumno eliminado correctamente")
-        return redirect(url_for("alumnos.alumnos"))
 
-    return render_template("alumnos/eliminar.html", form=create_form)
+        flash("Alumno eliminado correctamente")
+        return redirect(url_for('alumnos.alumnos'))
+
+    return render_template('alumnos/eliminar.html', form=create_form)
 
 @alumnos_bp.route("/alumnos/detalles", methods=["GET", "POST"])
 def detalles():

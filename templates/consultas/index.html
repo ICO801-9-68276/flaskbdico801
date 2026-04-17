@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block container %}
+
+<div class="py-32" style="max-width: 1200px; margin: 0 auto;">
+  <div style="background: white; border: 1px solid #d1d5db; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 30px;">
+    <h1 style="text-align: center; font-size: 36px; font-weight: bold; color: #1f2937; margin-bottom: 30px;">
+      Consultas del sistema
+    </h1>
+
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      <a href="{{ url_for('consultas.curso_alumnos') }}"
+         style="display: block; width: 320px; background: #1d4ed8; color: white; text-align: center; border-radius: 16px; padding: 28px 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.12);">
+        <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Alumnos por curso</h2>
+        <p style="font-size: 14px;">Consultar qué alumnos están inscritos en una materia</p>
+      </a>
+
+      <a href="{{ url_for('consultas.alumno_cursos') }}"
+         style="display: block; width: 320px; background: #1d4ed8; color: white; text-align: center; border-radius: 16px; padding: 28px 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.12);">
+        <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Cursos por alumno</h2>
+        <p style="font-size: 14px;">Consultar en qué materias está inscrito un alumno</p>
+      </a>
+
+      <a href="{{ url_for('consultas.maestro_cursos') }}"
+         style="display: block; width: 320px; background: #1d4ed8; color: white; text-align: center; border-radius: 16px; padding: 28px 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.12);">
+        <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Cursos por maestro</h2>
+        <p style="font-size: 14px;">Consultar qué materias imparte un profesor</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

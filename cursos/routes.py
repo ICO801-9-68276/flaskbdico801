@@ -144,6 +144,10 @@ def cursos_eliminar():
         return redirect(url_for("cursos.cursos"))
 
     if request.method == "POST":
+        if curso1.alumnos:
+            flash("No se puede eliminar el curso porque tiene alumnos inscritos. Debes eliminar primero las inscripciones de esa materia antes de eliminar el curso o debes de cambiar a otro maestro diferente.")
+            return render_template("cursos/eliminar.html", curso=curso1)
+
         db.session.delete(curso1)
         db.session.commit()
         flash("Curso eliminado correctamente")

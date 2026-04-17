@@ -1,0 +1,43 @@
+{% extends "layout.html" %} {% block container %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Alumno</label>
+      <input
+        type="text"
+        value="{{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apaterno }} {{ inscripcion.alumno.amaterno }}"
+        class="block w-full p-2.5 border border-gray-300 rounded-lg"
+        readonly
+      />
+    </div>
+
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Curso</label>
+      <input
+        type="text"
+        value="{{ inscripcion.curso.nombre }}"
+        class="block w-full p-2.5 border border-gray-300 rounded-lg"
+        readonly
+      />
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <input
+        type="submit"
+        value="Eliminar"
+        class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+      />
+      <a
+        href="{{ url_for('inscripciones.inscripciones') }}"
+        class="bg-green-500 text-white px-4 py-2 rounded flex items-center justify-center hover:bg-green-600"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

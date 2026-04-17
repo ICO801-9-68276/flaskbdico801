@@ -2,6 +2,19 @@
 macros %}
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="max-w-md mx-auto mb-4">
+        {% for message in messages %}
+          <div class="p-4 mb-3 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />

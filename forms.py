@@ -29,7 +29,7 @@ class MaestrosForm(Form):
     ])
     nombre = StringField('Nombre', [
         validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=3, max=100, message="Ingrese un nombre válido")
+        validators.length(min=3, max=50, message="Ingrese un nombre válido")
     ])
     apellidos = StringField('Apellidos', [
         validators.DataRequired(message="El campo es requerido")
@@ -49,4 +49,12 @@ class CursoForm(Form):
     ])
     descripcion = TextAreaField('Descripción', [
         validators.Optional()
+    ])
+
+class InscripcionForm(Form):
+    alumno_id = IntegerField('Alumno', [
+        validators.DataRequired(message="Debes seleccionar un alumno")
+    ])
+    curso_id = IntegerField('Curso', [
+        validators.DataRequired(message="Debes seleccionar un curso")
     ])

@@ -1,0 +1,75 @@
+{% extends "layout.html" %} {% block container %}
+
+<div class="py-32 max-w-5xl mx-auto">
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="mb-4">
+        {% for message in messages %}
+          <div class="p-4 mb-3 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="bg-white border border-gray-200 rounded-2xl shadow-md p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+      Cursos asignados a un maestro
+    </h1>
+
+    <form method="GET" action="" class="max-w-md mx-auto mb-8">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Maestro</label>
+      <select name="maestro_id" class="block w-full p-2.5 border border-gray-300 rounded-lg">
+        <option value="">Seleccione un maestro</option>
+        {% for m in maestros %}
+          <option value="{{ m.matricula }}" {% if maestro_id|string == m.matricula|string %}selected{% endif %}>
+            {{ m.nombre }} {{ m.apellidos }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <div class="mt-6 flex justify-center">
+        <button type="submit"
+                class="bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-2xl text-sm px-8 py-3 shadow-sm">
+          Consultar
+        </button>
+      </div>
+    </form>
+
+    {% if maestro %}
+      <div class="mb-4">
+        <h2 class="text-xl font-semibold text-gray-800">
+          Maestro: {{ maestro.nombre }} {{ maestro.apellidos }}
+        </h2>
+        <p class="text-gray-600">Especialidad: {{ maestro.especialidad }}</p>
+      </div>
+
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th class="px-6 py-3">ID</th>
+            <th class="px-6 py-3">Curso</th>
+            <th class="px-6 py-3">Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for curso in cursos_asignados %}
+          <tr class="bg-white border-b border-gray-200">
+            <td class="px-6 py-4">{{ curso.id }}</td>
+            <td class="px-6 py-4">{{ curso.nombre }}</td>
+            <td class="px-6 py-4">{{ curso.descripcion }}</td>
+          </tr>
+          {% else %}
+          <tr class="bg-white border-b border-gray-200">
+            <td colspan="3" class="px-6 py-4 text-center">Este maestro no tiene cursos asignados</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
